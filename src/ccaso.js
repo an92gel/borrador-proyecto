@@ -3,9 +3,10 @@ const inputnombre = document.getElementById("inputnombre")
 const inputembarque = document.getElementById("inputembarque")
 let btncccaso = document.getElementById("btnccaso")
 
+//importamos la función deiniadmin
+
 btncccaso.addEventListener('click', inputccasos)
 
-console.log(btncccaso);
 export function inputccasos() {
 
     let nit = inputnit.value
@@ -28,6 +29,9 @@ export function inputccasos() {
         });
 
 
-        return (nit)
+        //convertimos los datos a String para poder ser almacenaos en el localstorage   
+        const data  = JSON.stringify({nitc: nit,ncliente: nombre, estado: 'Nuevo'})
+
+        localStorage.setItem('data',data)
     }
 }

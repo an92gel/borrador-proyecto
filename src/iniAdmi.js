@@ -37,23 +37,21 @@ let data = [
 let dataStorge;
 
 export function registoCCaso(params) {
+    //
   if (localStorage.getItem("data")) {
 
       //const localData = localStorage.getItem("data");
       let localdata2 = { nit: "", nombre: "", embarque: "" };
       //localdata2 = JSON.parse(localData);
       
-      localdata2 =desconvierteString('data')
+      //localdata2 =desconvierteString('data')
       let tempdata  = desconvierteString('inicialData')
-      
-      console.log('temdata',tempdata.length);
+    
 
 
     //le agregamos un valor adicional a la información que trae
     localdata2.ncaso = tempdata[tempdata.length-1].ncaso +1
     dataStorge.push(localdata2);
-
-    console.log(dataStorge);
 
     //insertar la nueva data nuevamente en inicialData
 
@@ -72,7 +70,7 @@ function inicialdata() {
     //let tempData = JSON.stringify(data)
     //localStorage.setItem('inicialData',tempData)
 
-    dataStorge = JSON.parse(tempData);
+    //dataStorge = JSON.parse(tempData);
 
     console.log("se ha creado el almacenado de la data inicial");
 
@@ -80,13 +78,9 @@ function inicialdata() {
   } else {
     let local = localStorage.getItem("inicialData");
     dataStorge = JSON.parse(local);
-
-    console.log("else");
-    console.log(dataStorge);
     registoCCaso();
   }
 
-  console.log("ds", dataStorge);
   const titulos = `
   
     <thead>
@@ -138,15 +132,12 @@ function eliminar(e) {
 //editar datos de la tabla
 function editarFn(e) {
   const value = e.target.attributes.name.value;
-  console.log(value);
 
   const editarDatos = dataStorge.find((el) => el.ncaso == value);
 
 
   const nombre = prompt("Editar nombre", editarDatos.ncliente);
   const nit = prompt("Editar NIT", editarDatos.nitc);
-
-  console.log({ nombre, nit });
 
   dataStorge = dataStorge.map((el) => {
     if (el.ncaso == value) {
@@ -178,7 +169,6 @@ function desconvierteString(item) {
 
 //busqueda desde el input --cada vez que se escribe busca automaticamente
 inputBuscar.addEventListener("input", (e) => {
-  console.log("cambio");
 
   //lamada ala función que realiza la busqueda
   busqueda(e);
@@ -190,6 +180,8 @@ btnBuscar.addEventListener("click", busqueda);
 //función que realiza la busqueda
 function busqueda(e) {
   e.preventDefault();
+
+  //obtiene el valor lo convierte a string y lo pasa a minúscula
   const temp = inputBuscar.value.toString().toLocaleLowerCase();
 
   let tr = document.getElementsByTagName("tr");
@@ -199,13 +191,10 @@ function busqueda(e) {
       .toString()
       .toLocaleLowerCase();
     if (textoConsulta.indexOf(temp) === -1) {
-      console.log(textoConsulta);
-      console.log("valor buscado", temp);
       if (tr[i].id == "body") {
         tr[i].style.visibility = "collapse";
       }
     } else {
-      console.log("else");
       tr[i].style.visibility = "";
     }
   }
